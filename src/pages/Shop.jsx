@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
+import { useWishlist } from '../context/WishlistContext';
 import products from '../data/products';
 
 export default function Shop() {
   const [currentPage, setCurrentPage] = useState(1);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const { addToCart } = useCart();
+  const { addToWishlist, isInWishlist } = useWishlist();
 
   const productsPerPage = 8;
   const totalPages = Math.ceil(products.length / productsPerPage);
@@ -40,10 +43,23 @@ export default function Shop() {
         <div className="prod-container">
           {filteredProducts.map((product) => (
             <div key={product.id} className="pro">
-              <img src={product.image} alt={product.name} />
+              <Link to={`/product/${product.id}`}>
+                <img src={product.image} alt={product.name} />
+              </Link>
+              
+              <button 
+                className={`wishlist-icon ${isInWishlist(product.id) ? 'active' : ''}`}
+                onClick={() => addToWishlist(product)}
+                title={isInWishlist(product.id) ? 'Remove from wishlist' : 'Add to wishlist'}
+              >
+                <i className={`fa-solid fa-heart`}></i>
+              </button>
+
               <div className="des">
                 <span>{product.brand}</span>
-                <h5>{product.name}</h5>
+                <Link to={`/product/${product.id}`}>
+                  <h5>{product.name}</h5>
+                </Link>
                 <div className="star">
                   {[...Array(5)].map((_, i) => (
                     <i 
@@ -54,6 +70,7 @@ export default function Shop() {
                 </div>
                 <h4>${product.price}</h4>
               </div>
+              
               <button 
                 onClick={() => handleAddToCart(product)}
                 className="cart-btn-add"

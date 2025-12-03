@@ -112,6 +112,7 @@ const Home = () => {
           <h3>New Trendy Prints</h3>
         </div>
       </section>
+      
     </>
   );
 };

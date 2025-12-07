@@ -3420,3 +3420,248 @@ input[type='number'] {
     max-width: 350px;
   }
 }
+/* ============================================
+   🎨 FOOTER - NEW DESIGN
+   ============================================ */
+
+.footer {
+  background: #f8f9fa;
+  border-top: 1px solid #e2e9e1;
+}
+
+/* ===== Footer Top - Logo ===== */
+.footer-top {
+  text-align: center;
+  padding: 40px 80px 30px;
+  border-bottom: 1px solid #e2e9e1;
+}
+
+.footer-top .logo {
+  height: 50px;
+  width: auto;
+}
+
+/* ===== Footer Content - Columns ===== */
+.footer-content {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
+  padding: 50px 80px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* ===== Footer Columns ===== */
+.footer-content .col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.footer-content .col h4 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.footer-content .col h4::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 40px;
+  height: 3px;
+  background: linear-gradient(90deg, #088178, #0abab5);
+  border-radius: 2px;
+}
+
+.footer-content .col p {
+  font-size: 14px;
+  color: #666;
+  margin: 0 0 10px 0;
+  line-height: 1.8;
+}
+
+.footer-content .col a {
+  font-size: 14px;
+  text-decoration: none;
+  color: #666;
+  margin-bottom: 12px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.footer-content .col a:hover {
+  color: #088178;
+  padding-left: 8px;
+}
+
+.footer-content .col a::before {
+  content: '';
+  position: absolute;
+  left: -15px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 2px;
+  background: #088178;
+  transition: width 0.3s ease;
+}
+
+.footer-content .col a:hover::before {
+  width: 10px;
+}
+
+/* ===== Follow Us Section ===== */
+.footer-content .follow {
+  margin-top: 20px;
+}
+
+.footer-content .follow h4 {
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+.footer-content .follow h4::after {
+  width: 30px;
+}
+
+.footer-content .social {
+  display: flex;
+  gap: 12px;
+}
+
+.footer-content .social a {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #fff;
+  border: 1px solid #e2e9e1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  margin: 0;
+  padding: 0;
+}
+
+.footer-content .social a::before {
+  display: none;
+}
+
+.footer-content .social a:hover {
+  background: #088178;
+  border-color: #088178;
+  color: #fff;
+  transform: translateY(-3px);
+  padding-left: 0;
+}
+
+/* ===== Install App Section ===== */
+.footer-content .install .row {
+  display: flex;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.footer-content .install .row img {
+  height: 40px;
+  width: auto;
+  border-radius: 6px;
+  border: 1px solid #e2e9e1;
+  transition: transform 0.3s ease;
+}
+
+.footer-content .install .row img:hover {
+  transform: scale(1.05);
+}
+
+.footer-content .install > img {
+  margin-top: 10px;
+  max-width: 200px;
+}
+
+/* ===== Footer Bottom - Copyright ===== */
+.footer-bottom {
+  background: #222;
+  text-align: center;
+  padding: 20px;
+}
+
+.footer-bottom p {
+  color: #999;
+  font-size: 14px;
+  margin: 0;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 1200px) {
+  .footer-content {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px 60px;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer-top {
+    padding: 30px 40px 20px;
+  }
+
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 40px;
+    text-align: center;
+  }
+
+  .footer-content .col {
+    align-items: center;
+  }
+
+  .footer-content .col h4::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .footer-content .col a::before {
+    display: none;
+  }
+
+  .footer-content .col a:hover {
+    padding-left: 0;
+  }
+
+  .footer-content .social {
+    justify-content: center;
+  }
+
+  .footer-content .install .row {
+    justify-content: center;
+  }
+
+  .footer-content .install > img {
+    margin: 10px auto 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-top {
+    padding: 25px 20px;
+  }
+
+  .footer-top .logo {
+    height: 40px;
+  }
+
+  .footer-content {
+    padding: 30px 20px;
+    gap: 35px;
+  }
+}

@@ -1,8 +1,15 @@
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
+import { useWishlist } from '../context/WishlistContext'; 
 import products from '../data/products';
 
 const Home = () => {
   const { addToCart } = useCart();
+  const { addToWishlist, isInWishlist } = useWishlist();  
+  
+  // : State  hover effect
+  const [hoveredProduct, setHoveredProduct] = useState(null);
 
   return (
     <>
@@ -43,31 +50,99 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Products */}
+      {/* : Products Section */}
       <section id="products" className="section-p1">
-        <h2>Featured Products</h2>
-        <p>Summer Collection New Modern Design</p>
+        {/* : Section Header */}
+        <div className="section-header">
+          <h2>Featured Products</h2>
+          <p>Summer Collection New Modern Design</p>
+        </div>
+
         <div className="prod-container">
-          {products.slice(0, 8).map(product => (
-            <div key={product.id} className="pro">
-              <img src={product.image} alt={product.name} />
-              <div className="des">
-                <span>{product.brand}</span>
-                <h5>{product.name}</h5>
-                <div className="star">
-                  <i className="fas fa-star"></i>
-                  <i className="fas fa-star"></i>
-                  <i className="fas fa-star"></i>
-                  <i className="fas fa-star"></i>
-                  <i className="fas fa-star"></i>
-                </div>
-                <h4>${product.price}</h4>
+          {products.slice(0, 8).map((product, index) => (
+            <div 
+              key={product.id} 
+              className="pro"
+              style={{ animationDelay: `${index * 0.1}s` }}
+              onMouseEnter={() => setHoveredProduct(product.id)}
+              onMouseLeave={() => setHoveredProduct(null)}
+            >
+              {/* : Badges */}
+              <div className="product-badges">
+                {product.discount && (
+                  <span className="badge sale">-{product.discount}%</span>
+                )}
+                {product.isNew && (
+                  <span className="badge new">NEW</span>
+                )}
               </div>
+
+              {/* : Image Container */}
+              <div className="pro-image">
+                <Link to={`/product/${product.id}`}>
+                  <img src={product.image} alt={product.name} />
+                </Link>
+                
+                {/* : Overlay Actions */}
+                <div className={`pro-actions ${hoveredProduct === product.id ? 'show' : ''}`}>
+                  <button 
+                    className={`action-btn ${isInWishlist(product.id) ? 'active' : ''}`}
+                    onClick={() => addToWishlist(product)}
+                    title="Add to Wishlist"
+                  >
+                    <i className="fa-solid fa-heart"></i>
+                  </button>
+                  
+                  <button 
+                    className="action-btn primary"
+                    onClick={() => addToCart(product)}
+                    title="Add to Cart"
+                  >
+                    <i className="fa-solid fa-cart-shopping"></i>
+                  </button>
+                  
+                  <Link 
+                    to={`/product/${product.id}`} 
+                    className="action-btn"
+                    title="Quick View"
+                  >
+                    <i className="fa-solid fa-eye"></i>
+                  </Link>
+                </div>
+              </div>
+
+              {/* : Product Info */}
+              <div className="des">
+                <span className="brand">{product.brand}</span>
+                <Link to={`/product/${product.id}`}>
+                  <h5>{product.name}</h5>
+                </Link>
+                
+                <div className="star">
+                  {[...Array(5)].map((_, i) => (
+                    <i 
+                      key={i}
+                      className={`fa-solid fa-star ${i < product.rating ? '' : 'empty'}`}
+                    />
+                  ))}
+                  <span className="review-count">({product.reviews || 0})</span>
+                </div>
+                
+                {/* : Price with old price */}
+                <div className="price-box">
+                  <h4>${product.price}</h4>
+                  {product.oldPrice && (
+                    <span className="old-price">${product.oldPrice}</span>
+                  )}
+                </div>
+              </div>
+
+              {/* : Quick Add Button (Mobile) */}
               <button 
-                className="cart-add-btn"
+                className="quick-add-btn"
                 onClick={() => addToCart(product)}
               >
-                <i className="fa-solid fa-cart-shopping"></i>
+                <i className="fa-solid fa-plus"></i>
               </button>
             </div>
           ))}
@@ -79,6 +154,94 @@ const Home = () => {
         <h4>Repair Services</h4>
         <h2>Up to <span>70% Off</span> - All t-Shirt & Accessories</h2>
         <button className="normal">Explore More</button>
+      </section>
+
+      {/*  : New Arrivals Section */}
+      <section id="products" className="section-p1">
+        <div className="section-header">
+          <h2>New Arrivals</h2>
+          <p>Check out our latest products</p>
+        </div>
+
+        <div className="prod-container">
+          {products.slice(8, 12).map((product, index) => (
+            <div 
+              key={product.id} 
+              className="pro"
+              style={{ animationDelay: `${index * 0.1}s` }}
+              onMouseEnter={() => setHoveredProduct(product.id)}
+              onMouseLeave={() => setHoveredProduct(null)}
+            >
+              {/* Badges */}
+              <div className="product-badges">
+                {product.discount && (
+                  <span className="badge sale">-{product.discount}%</span>
+                )}
+                <span className="badge new">NEW</span>
+              </div>
+
+              {/* Image Container */}
+              <div className="pro-image">
+                <Link to={`/product/${product.id}`}>
+                  <img src={product.image} alt={product.name} />
+                </Link>
+                
+                {/* Overlay Actions */}
+                <div className={`pro-actions ${hoveredProduct === product.id ? 'show' : ''}`}>
+                  <button 
+                    className={`action-btn ${isInWishlist(product.id) ? 'active' : ''}`}
+                    onClick={() => addToWishlist(product)}
+                  >
+                    <i className="fa-solid fa-heart"></i>
+                  </button>
+                  
+                  <button 
+                    className="action-btn primary"
+                    onClick={() => addToCart(product)}
+                  >
+                    <i className="fa-solid fa-cart-shopping"></i>
+                  </button>
+                  
+                  <Link to={`/product/${product.id}`} className="action-btn">
+                    <i className="fa-solid fa-eye"></i>
+                  </Link>
+                </div>
+              </div>
+
+              {/* Product Info */}
+              <div className="des">
+                <span className="brand">{product.brand}</span>
+                <Link to={`/product/${product.id}`}>
+                  <h5>{product.name}</h5>
+                </Link>
+                
+                <div className="star">
+                  {[...Array(5)].map((_, i) => (
+                    <i 
+                      key={i}
+                      className={`fa-solid fa-star ${i < product.rating ? '' : 'empty'}`}
+                    />
+                  ))}
+                  <span className="review-count">({product.reviews || 0})</span>
+                </div>
+                
+                <div className="price-box">
+                  <h4>${product.price}</h4>
+                  {product.oldPrice && (
+                    <span className="old-price">${product.oldPrice}</span>
+                  )}
+                </div>
+              </div>
+
+              <button 
+                className="quick-add-btn"
+                onClick={() => addToCart(product)}
+              >
+                <i className="fa-solid fa-plus"></i>
+              </button>
+            </div>
+          ))}
+        </div>
       </section>
 
       {/* SM Banner */}

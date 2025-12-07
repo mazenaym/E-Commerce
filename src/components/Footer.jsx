@@ -8,8 +8,8 @@ const Footer = () => {
           <img className="logo" src="/imgs/logo.png" alt="logo" />
         </Link>
         <h4>Contact</h4>
-        <p><strong>Address:</strong> 562 Wellington Road, Street 32, San Francisco</p>
-        <p><strong>Phone:</strong> +01 2222 365 /(+91) 01 2345 6789</p>
+        <p><strong>Address:</strong> 4 Elgalaa Road, Street 32, Mansoura</p>
+        <p><strong>Phone:</strong> +20 12 2222 365 /(+91) 01 2345 6789</p>
         <p><strong>Hours:</strong> 10:00 - 20:00, sat - th</p>
         <div className="follow">
           <h4>Follow Us</h4>
@@ -47,8 +47,8 @@ const Footer = () => {
         <Link to="/sign-up">Sign In</Link>
         <Link to="/cart">View Cart</Link>
         <Link to="/wishlist">My Wishlist</Link>
-        <Link to="/track-order">Track My Order</Link>
-        <Link to="/help">Help</Link>
+        <Link to="/cart">Track My Order</Link>
+        <Link to="/about">Help</Link>
       </div>
       
       <div className="col install">

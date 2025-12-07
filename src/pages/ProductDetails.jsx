@@ -92,13 +92,15 @@ const ProductDetails = () => {
               className={mainImage === product.image ? 'active' : ''}
               onClick={() => setMainImage(product.image)}
             />
-            {/* يمكن إضافة صور إضافية هنا */}
           </div>
         </div>
 
         <div className="product-info">
-          <h6>{product.brand}</h6>
-          <h4>{product.name}</h4>
+          {/* Brand Badge */}
+          <span className="product-brand">{product.brand}</span>
+          
+          {/* Product Title */}
+          <h1 className="product-title">{product.name}</h1>
           
           {/* Rating */}
           <div className="rating">
@@ -108,10 +110,16 @@ const ProductDetails = () => {
                 className={`fa-solid fa-star ${i < product.rating ? '' : 'empty'}`}
               />
             ))}
-            <span>(127 reviews)</span>
+            <span className="review-count">(27 reviews)</span>
           </div>
 
-          <h2>${product.price}</h2>
+          {/* Price & Stock */}
+          <div className="price-section">
+            <h2 className="product-price">${product.price}</h2>
+            <span className="stock-badge in-stock">
+              <i className="fa-solid fa-check"></i> In Stock
+            </span>
+          </div>
 
           {/* Size Selection */}
           <div className="size-selection">
